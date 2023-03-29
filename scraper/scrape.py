@@ -1,7 +1,7 @@
 import os
 import twint
 
-OUTPUT_FILE = f"{os.path.dirname(__file__)}/output.csv"
+OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "output.csv")
 
 if os.path.exists(OUTPUT_FILE):
     os.remove(OUTPUT_FILE)
