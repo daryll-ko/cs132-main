@@ -8,9 +8,13 @@ OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "output.csv")
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("-u", "--username", default="jarredsumner")
-    parser.add_argument("-s", "--search", default="zig")
+    parser.add_argument("-u", "--username")
+    parser.add_argument("-s", "--search")
     parser.add_argument("-l", "--limit", default="100")
+
+    if not args.search:
+        print("Include a search term!")
+        exit()
 
     args = parser.parse_args()
 
@@ -19,7 +23,8 @@ def main():
 
     c = twint.Config()
 
-    c.Username = args.username
+    if args.username:
+        c.Username = args.username
     c.Search = args.search
     c.Limit = int(args.limit)
 
