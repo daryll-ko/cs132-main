@@ -10,7 +10,7 @@ def main():
 
     parser.add_argument("-u", "--username", default="jarredsumner")
     parser.add_argument("-s", "--search", default="zig")
-    parser.add_argument("-l", "--limit", default="200")
+    parser.add_argument("-l", "--limit", default="100")
 
     args = parser.parse_args()
 
@@ -25,19 +25,6 @@ def main():
 
     c.Hide_output = True
     c.Store_csv = True
-    c.Custom["tweet"] = [
-        "username",
-        "id",
-        "name",
-        "tweet",
-        "created_at",
-        "mentions",
-        "urls",
-        "photos",
-        "likes_count",
-        "replies_count",
-        "retweets_count"
-    ]
     c.Output = OUTPUT_FILE
 
     twint.run.Search(c)

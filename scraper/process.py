@@ -11,10 +11,6 @@ def row_id(row):
     return f"09-{row.name + 1}"
 
 
-def tweet_url(row):
-    return f"https://twitter.com/{row['username']}/status/{row['id']}"
-
-
 def account_handle(row):
     return f"@{row['username']}"
 
@@ -59,6 +55,40 @@ def location(row):
     return user_info_hash[row.username]["location"][0]
 
 
+def tweet_type(row):
+    labels = []
+    
+    words = list(filter(lambda word: word[0] != '@', row.tweet.split()))
+    if len(words) >= 1:
+        labels.append("Text")
+    
+    photos = row.photos[1:-1]
+    if len(photos) >= 1:
+        labels.append("Image")
+
+    video = int(row.video)
+    if video == 1:
+        labels.append("Video")
+
+    urls = row.urls[1:-1]
+    if len(urls) >= 1:
+        labels.append("URL")
+    
+    retweet = bool(row.retweet)
+    if retweet:
+        labels.append("Retweet")
+    
+    quote_url = row.quote_url
+    if "https" in str(quote_url):
+        labels.append("Quote Tweet")
+
+    reply_to = row.reply_to[1:-1]
+    if len(reply_to) >= 1:
+        labels.append("Reply")
+
+    return ", ".join(labels)
+
+
 def main():
     if not os.path.exists(INPUT_FILE):
         print("Make sure you've run scrape.py!")
@@ -69,8 +99,8 @@ def main():
         generate_user_info(row)
 
     df["ID"] = df.apply(lambda row: row_id(row), axis=1)
-    df["Tweet URL"] = df.apply(lambda row: tweet_url(row), axis=1)
     df["Account handle"] = df.apply(lambda row: account_handle(row), axis=1)
+    df["Tweet Type"] = df.apply(lambda row: tweet_type(row), axis=1)
     df["Date posted"] = df.apply(lambda row: date_posted(row), axis=1)
     df["Account bio"] = df.apply(lambda row: account_bio(row), axis=1)
     df["Joined"] = df.apply(lambda row: joined(row), axis=1)
@@ -83,6 +113,7 @@ def main():
     df = df.assign(Category="RBRD")
     df = df.assign(Topic="Leni's incompetence as VP")
 
+    df["Tweet URL"] = df["link"]
     df["Account name"] = df["name"]
     df["Tweet"] = df["tweet"]
     df["Likes"] = df["likes_count"]
@@ -100,24 +131,24 @@ def main():
         "Account handle",
         "Account name",
         "Account bio",
-        # Account type
+        # (Account type)
         "Joined",
         "Following",
         "Followers",
         "Location",
         "Tweet",
         #   [Tweet Translated]
-        # Tweet Type
+        "Tweet Type",
         "Date posted",
         #   [Screenshot]
-        # Content type
+        # (Content type)
         "Likes",
         "Replies",
         "Retweets",
         #   [Quote Tweets]
         #   [Views]
         #   [Rating]
-        # Reasoning
+        # (Reasoning)
         #   [Remarks]
         #   [Reviewer]
         #   [Review]
