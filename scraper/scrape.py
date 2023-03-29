@@ -12,11 +12,11 @@ def main():
     parser.add_argument("-s", "--search")
     parser.add_argument("-l", "--limit", default="100")
 
+    args = parser.parse_args()
+
     if not args.search:
         print("Include a search term!")
         exit()
-
-    args = parser.parse_args()
 
     if os.path.exists(OUTPUT_FILE):
         os.remove(OUTPUT_FILE)
