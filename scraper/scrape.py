@@ -14,7 +14,7 @@ c.Search = "zig"
 c.Stats = True
 c.Hide_output = True
 c.Store_csv = True
-c.Custom["tweet"] = ["id", "username", "likes_count", "replies_count", "retweets_count"]
+c.Custom["tweet"] = ["username", "id", "name", "likes_count", "replies_count", "retweets_count"]
 c.Output = OUTPUT_FILE
 
 twint.run.Search(c)
