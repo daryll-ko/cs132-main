@@ -67,7 +67,7 @@ def tweet_type(row):
         labels.append("Image")
 
     video = int(row.video)
-    if video == 1:
+    if video == 1 and video not in photos:
         labels.append("Video")
 
     urls = row.urls[1:-1]
