@@ -2,6 +2,8 @@
 
 ## `scraper`
 
+[twint user attributes](https://github.com/twintproject/twint/wiki/User-attributes) | [twint tweet attributes](https://github.com/twintproject/twint/wiki/Tweet-attributes) | [twint configuration options](https://github.com/twintproject/twint/wiki/Configuration)
+
 Table columns (optional ones are bracketed):
 
 - ID
