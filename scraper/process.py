@@ -21,7 +21,7 @@ def account_handle(row):
 
 def date_posted(row):
     created_at = row['created_at']
-    result = re.search(r"(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2}) PST", created_at)
+    result = re.search(r"(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2}).*", created_at)
     year, month, day, hour, minute, _ = result.groups()
     return f"{day}/{month}/{year} {hour}:{minute}"
 
