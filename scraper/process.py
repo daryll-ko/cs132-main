@@ -101,10 +101,19 @@ def main():
 
     parser = argparse.ArgumentParser()
     
+    parser.add_argument("-u", "--user")
     parser.add_argument("-f", "--first")
     parser.add_argument("-s", "--search")
     
     args = parser.parse_args()
+
+    if not args.user:
+        print("Indicate who you are! (d|w|z)")
+        exit()
+
+    if args.user not in ['d', 'w', 'z']:
+        print("Make sure the value of the -u flag is in (d|w|z)!")
+        exit()
 
     if not args.first:
         print("Include the index of your first data point!")
@@ -133,9 +142,15 @@ def main():
     df["Followers"] = df.apply(lambda row: followers(row), axis=1)
     df["Location"] = df.apply(lambda row: location(row), axis=1)
 
+    name_dict = {
+        'd': "Ko, Daryll",
+        'w': "Maceda, Westin",
+        'z': "Garais, Zandrew",
+    }
+
     df = df.assign(Timestamp=datetime.now().strftime("%d/%m/%y %H:%M:%S"))
     df = df.assign(Group="09")
-    df = df.assign(Collector="Ko, Daryll")
+    df = df.assign(Collector=name_dict[args.user])
     df = df.assign(Category="RBRD")
     df = df.assign(Topic="Leni's incompetence as VP")
     df = df.assign(Keywords=args.search)
