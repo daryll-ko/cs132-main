@@ -71,10 +71,32 @@ Steps:
 
 ---
 
-3. Install the required packages:
+3.
+
+a) Install `twint`:
+
+First, clone `minamotorin`'s fork:
 
 ```bash
-pip3 install twint pandas
+git clone git@github.com:minamotorin/twint.git
+```
+
+Next, `cd` into the `twint` repository:
+
+```bash
+cd twint
+```
+
+Install `twint` like so:
+
+```bash
+pip3 install . -r requirements.txt
+```
+
+b) Install `snscrape` and `pandas`:
+
+```bash
+pip3 install snscrape pandas
 ```
 
 ---
