@@ -141,7 +141,8 @@ This step is the bottleneck of our workflow (roughly ~8 minutes for 200 tweets).
 
 ---
 
-7. Select rows in the fodder spreadsheet we want, copy-paste them into the final spreadsheet, then add fill in the remaining required columns:
+7. Select rows in the fodder spreadsheet we want, copy-paste them into the final spreadsheet, then fill in the remaining required columns:
+
    - Account Type
    - Content Type
    - Reasoning
