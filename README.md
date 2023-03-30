@@ -63,15 +63,21 @@ Steps:
 
 ![Download](images/download.png)
 
+---
+
 2. Extract the ZIP file, and in your terminal, `cd` (change directory) to the `scraper` folder:
 
 ![`cd` to `scraper`](images/cd-scraper.png)
 
-3. Install required packages:
+---
+
+3. Install the required packages:
 
 ```bash
 pip3 install twint pandas
 ```
+
+---
 
 4. Scrape tweets using the `scrape.py` program:
 
@@ -103,6 +109,8 @@ Once you execute this step, an `output.csv` file should appear in the folder you
 
 This step is relatively short (~1 minute or so for 200 tweets).
 
+---
+
 5. Process tweets using the `process.py` program:
 
 ```bash
@@ -126,5 +134,7 @@ python3 process.py -u d -f 61 -s leni\ walang\ ambag
 Once you execute this step, a `processed.csv` file should appear in the folder you are in. This is the file we'll import into the fodder spreadsheet!
 
 This step is the bottleneck of our workflow (roughly ~8 minutes for 200 tweets).
+
+---
 
 6. Import the generated `processed.csv` file into the fodder spreadsheet. Make sure to **append to the current sheet**, and **turn off the setting that recognizes values, dates, or equations**.
