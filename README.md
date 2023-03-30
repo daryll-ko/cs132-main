@@ -139,6 +139,8 @@ This step is the bottleneck of our workflow (roughly ~8 minutes for 200 tweets).
 
 6. Import the generated `processed.csv` file into the fodder spreadsheet. Make sure to **append to the current sheet**, and **turn off the setting that recognizes values, dates, or equations**.
 
+The header row will still be there once you import the `csv` file: **just delete that row**.
+
 ---
 
 7. Select rows in the fodder spreadsheet we want, copy-paste them into the final spreadsheet, then fill in the remaining required columns:
