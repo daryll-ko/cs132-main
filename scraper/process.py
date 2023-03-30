@@ -1,14 +1,18 @@
+import argparse
 import os
 import pandas as pd
 import re
 import subprocess
 
+from datetime import datetime
+
 INPUT_FILE = os.path.join(os.path.dirname(__file__), "output.csv")
 OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "processed.csv")
+START = 1
 
 
 def row_id(row):
-    return f"09-{row.name + 1}"
+    return f"09-{row.name + START}"
 
 
 def account_handle(row):
@@ -95,6 +99,27 @@ def main():
         exit()
     df = pd.read_csv(INPUT_FILE)
 
+    parser = argparse.ArgumentParser()
+    
+    parser.add_argument("-f", "--first")
+    parser.add_argument("-s", "--search")
+    
+    args = parser.parse_args()
+
+    if not args.first:
+        print("Include the index of your first data point!")
+        exit()
+
+    global START
+    START = int(args.first)
+
+    if not args.search:
+        print("Include the search term you used for scrape.py!")
+        exit()
+
+    if os.path.exists(OUTPUT_FILE):
+        os.remove(OUTPUT_FILE)
+
     for _, row in df.iterrows():
         generate_user_info(row)
 
@@ -108,10 +133,12 @@ def main():
     df["Followers"] = df.apply(lambda row: followers(row), axis=1)
     df["Location"] = df.apply(lambda row: location(row), axis=1)
 
+    df = df.assign(Timestamp=datetime.now().strftime("%d/%m/%y %H:%M:%S"))
     df = df.assign(Group="09")
     df = df.assign(Collector="Ko, Daryll")
     df = df.assign(Category="RBRD")
     df = df.assign(Topic="Leni's incompetence as VP")
+    df = df.assign(Keywords=args.search)
 
     df["Tweet URL"] = df["link"]
     df["Account name"] = df["name"]
@@ -122,12 +149,13 @@ def main():
 
     final_rows = [
         "ID",
+        "Timestamp",
         "Tweet URL",
         "Group",
         "Collector",
         "Category",
         "Topic",
-        # Keywords
+        "Keywords",
         "Account handle",
         "Account name",
         "Account bio",
@@ -155,7 +183,7 @@ def main():
     ]
 
     final_df = df[final_rows].copy()
-    final_df.to_csv(OUTPUT_FILE)
+    final_df.to_csv(OUTPUT_FILE, index=False)
 
 
 if __name__ == "__main__":
