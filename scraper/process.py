@@ -32,7 +32,7 @@ user_info_hash = {}
 def generate_user_info(row):
     if row.username not in user_info_hash:
         result = subprocess.getoutput(f"snscrape --jsonl --with-entity --max-results 0 twitter-user {row.username}")
-        df = pd.read_json(result, lines=True)
+        df = pd.read_json(result, lines=True, encoding="utf8")
         user_info_hash[row.username] = df.to_dict()
 
 
