@@ -162,6 +162,22 @@ def main():
     df["Replies"] = df["replies_count"]
     df["Retweets"] = df["retweets_count"]
 
+    blank_columns = [
+        "Account type",
+        "Tweet Translated",
+        "Screenshot",
+        "Content type",
+        "Quote Tweets",
+        "Views",
+        "Rating",
+        "Reasoning",
+        "Remarks",
+        "Reviewer",
+        "Review",
+    ]
+
+    df[blank_columns] = ""
+
     final_rows = [
         "ID",
         "Timestamp",
@@ -174,27 +190,27 @@ def main():
         "Account handle",
         "Account name",
         "Account bio",
-        # (Account type)
+        "Account type", # required
         "Joined",
         "Following",
         "Followers",
         "Location",
         "Tweet",
-        #   [Tweet Translated]
+        "Tweet Translated", # optional
         "Tweet Type",
         "Date posted",
-        #   [Screenshot]
-        # (Content type)
+        "Screenshot", # optional
+        "Content type", # required
         "Likes",
         "Replies",
         "Retweets",
-        #   [Quote Tweets]
-        #   [Views]
-        #   [Rating]
-        # (Reasoning)
-        #   [Remarks]
-        #   [Reviewer]
-        #   [Review]
+        "Quote Tweets", # optional
+        "Views", # optional
+        "Rating", # optional
+        "Reasoning", # required
+        "Remarks", # optional
+        "Reviewer", # do not fill
+        "Review", # do not fill
     ]
 
     final_df = df[final_rows].copy()
