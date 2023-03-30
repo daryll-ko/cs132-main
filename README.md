@@ -48,7 +48,7 @@ Table columns (optional ones are bracketed):
 
 ### Instructions
 
-[Group 9 **fodder** spreadsheet link](https://docs.google.com/spreadsheets/d/1ASOjERZSayN9qM3yESaNbGJy8DXeeddVyxhD8jvBmcY/edit#gid=654167680) | [Group 9 **final** spreadsheet link](https://docs.google.com/spreadsheets/d/1xeTTNx1zVFSfcaIIqL7B2uOQ3gnYt_L5z_ioXfwIL5Q/edit#gid=107810933)
+[Group 9 **fodder** spreadsheet](https://docs.google.com/spreadsheets/d/1ASOjERZSayN9qM3yESaNbGJy8DXeeddVyxhD8jvBmcY/edit#gid=654167680) | [Group 9 **final** spreadsheet](https://docs.google.com/spreadsheets/d/1xeTTNx1zVFSfcaIIqL7B2uOQ3gnYt_L5z_ioXfwIL5Q/edit#gid=107810933)
 
 Workflow:
 
@@ -138,3 +138,10 @@ This step is the bottleneck of our workflow (roughly ~8 minutes for 200 tweets).
 ---
 
 6. Import the generated `processed.csv` file into the fodder spreadsheet. Make sure to **append to the current sheet**, and **turn off the setting that recognizes values, dates, or equations**.
+
+---
+
+7. Select rows in the fodder spreadsheet we want, copy-paste them into the final spreadsheet, then add fill in the remaining required columns:
+   - Account Type
+   - Content Type
+   - Reasoning
