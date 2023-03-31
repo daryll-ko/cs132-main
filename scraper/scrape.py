@@ -21,7 +21,7 @@ def main():
         exit()
 
     if int(args.fromYear) > int(args.toYear):
-        print("Make sure -f is less than -t!")
+        print("Make sure -f is less than or equal to -t!")
         exit()
 
     if os.path.exists(OUTPUT_FILE):
