@@ -23,7 +23,7 @@ def date_posted(row):
     created_at = row['created_at']
     result = re.search(r"(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2}).*", created_at)
     year, month, day, hour, minute, _ = result.groups()
-    return f"{day}/{month}/{year} {hour}:{minute}"
+    return f"{day}/{month}/{year[2:]} {hour}:{minute}"
 
 
 user_info_hash = {}
