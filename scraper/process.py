@@ -20,7 +20,7 @@ def account_handle(row):
 
 
 def date_posted(row):
-    created_at = row['created_at']
+    created_at = row["created_at"]
     result = re.search(r"(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2}).*", created_at)
     year, month, day, hour, minute, _ = result.groups()
     return f"{day}/{month}/{year[2:]} {hour}:{minute}"
@@ -31,7 +31,9 @@ user_info_hash = {}
 
 def generate_user_info(row):
     if row.username not in user_info_hash:
-        result = subprocess.getoutput(f"snscrape --jsonl --with-entity --max-results 0 twitter-user {row.username}")
+        result = subprocess.getoutput(
+            f"snscrape --jsonl --with-entity --max-results 0 twitter-user {row.username}"
+        )
         df = pd.read_json(result, lines=True, encoding="utf8")
         user_info_hash[row.username] = df.to_dict()
 
@@ -61,11 +63,11 @@ def location(row):
 
 def tweet_type(row):
     labels = []
-    
-    words = list(filter(lambda word: word[0] != '@', row.tweet.split()))
+
+    words = list(filter(lambda word: word[0] != "@", row.tweet.split()))
     if len(words) >= 1:
         labels.append("Text")
-    
+
     photos = row.photos[1:-1]
     if len(photos) >= 1:
         labels.append("Image")
@@ -77,11 +79,11 @@ def tweet_type(row):
     urls = row.urls[1:-1]
     if len(urls) >= 1:
         labels.append("URL")
-    
+
     retweet = bool(row.retweet)
     if retweet:
         labels.append("Retweet")
-    
+
     quote_url = row.quote_url
     if "https" in str(quote_url):
         labels.append("Quote Tweet")
@@ -100,18 +102,18 @@ def main():
     df = pd.read_csv(INPUT_FILE)
 
     parser = argparse.ArgumentParser()
-    
+
     parser.add_argument("-u", "--user")
     parser.add_argument("-f", "--first")
     parser.add_argument("-s", "--search")
-    
+
     args = parser.parse_args()
 
     if not args.user:
         print("Indicate who you are! (d|w|z)")
         exit()
 
-    if args.user not in ['d', 'w', 'z']:
+    if args.user not in ["d", "w", "z"]:
         print("Make sure the value of the -u flag is in (d|w|z)!")
         exit()
 
@@ -143,9 +145,9 @@ def main():
     df["Location"] = df.apply(lambda row: location(row), axis=1)
 
     name_dict = {
-        'd': "Ko, Daryll",
-        'w': "Maceda, Westin",
-        'z': "Garais, Zandrew",
+        "d": "Ko, Daryll",
+        "w": "Maceda, Westin",
+        "z": "Garais, Zandrew",
     }
 
     df = df.assign(Timestamp=datetime.now().strftime("%d/%m/%y %H:%M:%S"))
@@ -190,27 +192,27 @@ def main():
         "Account handle",
         "Account name",
         "Account bio",
-        "Account type", # required
+        "Account type",  # required
         "Joined",
         "Following",
         "Followers",
         "Location",
         "Tweet",
-        "Tweet Translated", # optional
+        "Tweet Translated",  # optional
         "Tweet Type",
         "Date posted",
-        "Screenshot", # optional
-        "Content type", # required
+        "Screenshot",  # optional
+        "Content type",  # required
         "Likes",
         "Replies",
         "Retweets",
-        "Quote Tweets", # optional
-        "Views", # optional
-        "Rating", # optional
-        "Reasoning", # required
-        "Remarks", # optional
-        "Reviewer", # do not fill
-        "Review", # do not fill
+        "Quote Tweets",  # optional
+        "Views",  # optional
+        "Rating",  # optional
+        "Reasoning",  # required
+        "Remarks",  # optional
+        "Reviewer",  # do not fill
+        "Review",  # do not fill
     ]
 
     final_df = df[final_rows].copy()
