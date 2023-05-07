@@ -1,6 +1,8 @@
 # `cs132-main`
 
-## `scraper`
+<details>
+
+<summary>scraper</summary>
 
 [twint user attributes](https://github.com/twintproject/twint/wiki/User-attributes) | [twint tweet attributes](https://github.com/twintproject/twint/wiki/Tweet-attributes) | [twint configuration options](https://github.com/twintproject/twint/wiki/Configuration) | [`minamotorin`'s fork](https://github.com/minamotorin/twint)
 
@@ -170,3 +172,5 @@ The header row will still be there once you import the `csv` file: **just delete
    - Account Type
    - Content Type
    - Reasoning
+
+</details>
