@@ -26,14 +26,27 @@ def date_posted(row):
     return f"{day}/{month}/{year[2:]} {hour}:{minute}"
 
 
-user_info_hash = {}
+user_info_hash: dict[str, dict] = {}
 
 
 def generate_user_info(row):
     if row.username not in user_info_hash:
-        result = subprocess.getoutput(
-            f"snscrape --jsonl --with-entity --max-results 0 twitter-user {row.username}"
+        args = (
+            "snscrape"
+            " "
+            "--jsonl"
+            " "
+            "--with-entity"
+            " "
+            "--max-results"
+            " "
+            "0"
+            " "
+            "twitter-user"
+            " "
+            f"{row.username}"
         )
+        result = subprocess.getoutput(args)
         df = pd.read_json(result, lines=True, encoding="utf8")
         user_info_hash[row.username] = df.to_dict()
 
